@@ -13,39 +13,54 @@ import java.util.List;
 import java.util.ArrayList;
 import it.unipd.tos.business.exception.*;
 public class BillTest {
-User user;
-List<MenuItem> items;
-Bill bill;
-@Before
-public void setUp() {
-user = new User(1, "G", "C");
-bill = new Bill();
-items = new ArrayList<MenuItem>();
-String[] itemsName = {"Pinguino","Coppa Nafta", "Ciocco", "Liquirizia", "Coca", "Sprite"};
-ElementsType[] types = {ElementsType.Gelato, ElementsType.Gelato, ElementsType.Budino, ElementsType.Gelato, ElementsType.Bevanda, ElementsType.Bevanda };
-double[] prices = {1.5D,1D, 2D, 1.5D, 2.5D, 3D};
-for(int i = 0; i<6; i++) {
-items.add(new MenuItem(types[i],itemsName[i], prices[i]));
-}
-}
+	
+private List<MenuItem> itemsOrdered;
+private User user = new User(1, "G", "C");
+private String[] names = { "Pinguino", "Coppa Nafta", "Nocciolata", "Wafer", "Caramello", "Pistacchio", "Cola", "Sprite", "IceGold", "GodPudd"};
+private double[] prices = { 7.3D, 5.0D, 5.6D, 2.6D, 8.0D, 6.4D, 3.0D, 2.0D, 20.0D, 34.0D};
+private ElementsType[] types = { ElementsType.Gelato, ElementsType.Gelato, ElementsType.Budino, ElementsType.Gelato,
+		ElementsType.Gelato, ElementsType.Gelato, ElementsType.Gelato, ElementsType.Bevanda, ElementsType.Gelato, ElementsType.Budino };
+private Bill bill = new Bill();
+
 @Test
-public void testGetOrderPriceWithDiscount() {
-double ris = 0;
-try {
-	ris  = bill.getOrderPrice(items, user);
-} catch (TakeAwayBillException e) {
-	e.printStackTrace();
-} 
-assertEquals(11D, ris, 0);
+public void testgetOrderPriceWithDiscount() {
+    itemsOrdered = new ArrayList<MenuItem>();
+    for (int i = 0; i < 8; i++)
+        itemsOrdered.add(new MenuItem(types[i], names[i], prices[i]));
+    double ris = 0;
+    try {
+        ris = bill.getOrderPrice(itemsOrdered, user);
+    } catch (TakeAwayBillException e) {
+        e.printStackTrace();
+    }
+    assertEquals(38.6D, ris, 0);
 }
+
 @Test
-public void testGetOrderPriceWithNoDiscount() {
-	double ris = 0;
-	try {
-		ris  = bill.getOrderPrice(items.subList(0, 3), user);
-	} catch (TakeAwayBillException e) {
-		e.printStackTrace();
-	} 
-	assertEquals(4.5D, ris, 0);
-} 
+public void testgetOrderPriceWithNoDiscount() {
+    itemsOrdered = new ArrayList<MenuItem>();
+    for (int i = 0; i < 4; i++)
+    itemsOrdered.add(new MenuItem(types[i], names[i], prices[i]));
+    double ris = 0;
+    try {
+        ris = bill.getOrderPrice(itemsOrdered,user);
+    } catch (TakeAwayBillException e) {
+        e.printStackTrace();
+    }
+    assertEquals(20.5D, ris, 0);
+}
+
+@Test
+public void testgetOrderPriceOver50(){
+    itemsOrdered = new ArrayList<MenuItem>();
+    for (int i = 0; i < 10; i++)
+        itemsOrdered.add(new MenuItem(types[i], names[i], prices[i]));
+    double ris = 0;
+    try {
+        ris = bill.getOrderPrice(itemsOrdered, user);
+    } catch (TakeAwayBillException e) {
+        e.printStackTrace();
+    }
+    assertEquals(83.34D, ris, 0);
+}
 }
