@@ -2,6 +2,7 @@
 // Giosue' Calgaro 1201244
 ////////////////////////////////////////////////////////////////////
 package it.unipd.tos.business;
+
 import static org.junit.Assert.*;
 
 import org.junit.Test;
@@ -28,13 +29,23 @@ items.add(new MenuItem(types[i],itemsName[i], prices[i]));
 }
 }
 @Test
-public void testGetOrderPrice() {
+public void testGetOrderPriceWithDiscount() {
 double ris = 0;
 try {
 	ris  = bill.getOrderPrice(items, user);
 } catch (TakeAwayBillException e) {
 	e.printStackTrace();
 } 
-assertEquals(11.5D, ris, 0);
+assertEquals(11D, ris, 0);
 }
+@Test
+public void testGetOrderPriceWithNoDiscount() {
+	double ris = 0;
+	try {
+		ris  = bill.getOrderPrice(items.subList(0, 3), user);
+	} catch (TakeAwayBillException e) {
+		e.printStackTrace();
+	} 
+	assertEquals(4.5D, ris, 0);
+} 
 }
