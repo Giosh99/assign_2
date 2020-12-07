@@ -63,14 +63,4 @@ public void testgetOrderPriceOver50(){
     }
     assertEquals(83.34D, ris, 0);
 }
-@Test(expected = TakeAwayBillException.class)
-public void moreThan30ElementsExceptionTest() throws TakeAwayBillException{
-    itemsOrdered = new ArrayList<MenuItem>();
-    for(int j = 0; j < 4; j++)
-        for (int i = 0; i < 10; i++)
-            itemsOrdered.add(new MenuItem(types[i], names[i], prices[i]));
-    
-    @SuppressWarnings("unused")
-    double ris = bill.getOrderPrice(itemsOrdered, user);
-}
 }

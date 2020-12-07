@@ -10,9 +10,6 @@ public class Bill implements TakeAwayBill {
 
     @Override
     public double getOrderPrice(List<MenuItem> itemsOrdered, User user) throws TakeAwayBillException {
-        if(itemsOrdered.size()>30){
-            throw new TakeAwayBillException("Troppi elementi nell'ordinazione");
-        }
         double ris = 0;
         int iceCreams = 0;
         double totalIceCreamPudding = 0;
