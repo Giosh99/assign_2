@@ -34,10 +34,13 @@ public class Bill implements TakeAwayBill {
         if(totalIceCreamPudding > 50){
             ris -= ris*0.1;
         }
+        if(ris<10){
+            ris += 0.5;
+        }
         return ris;
     }
 
-    private double getIceCreamsDiscount(List<MenuItem> itemsOrdered){
+    private static double getIceCreamsDiscount(List<MenuItem> itemsOrdered){
         boolean first = true;
             double lessExpensive = 0;
             for (MenuItem menuItem : itemsOrdered) {

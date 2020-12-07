@@ -73,4 +73,17 @@ public void moreThan30ElementsExceptionTest() throws TakeAwayBillException{
     @SuppressWarnings("unused")
     double ris = bill.getOrderPrice(itemsOrdered, user);
 }
+
+@Test
+public void commissioneOrderPriceInferiore10Test(){
+    itemsOrdered = new ArrayList<MenuItem>();
+    itemsOrdered.add(new MenuItem(types[0], names[0], prices[0]));
+    double ris = 0;
+    try {
+        ris = bill.getOrderPrice(itemsOrdered, user);
+    } catch (Exception e) {
+        e.printStackTrace();
+    }
+    assertEquals(7.8, ris, 0);
+}
 }
