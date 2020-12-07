@@ -1,0 +1,7 @@
+# Escludiamo la cartella con gli artefatti 
+target/
+#escludo tutte le cartelle si settings
+.classpath
+.project
+.settings/
+.metadata/
